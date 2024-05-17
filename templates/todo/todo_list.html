@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit ToDo</title>
+</head>
+<body>
+    <h1>Edit ToDo</h1>
+    <form method="post" action="{% url 'todo:edit_todo' todo.id %}">
+        {% csrf_token %}
+        <label for="name">할일 제목:</label>
+        <input type="text" id="name" name="name" value="{{ todo.name }}" required>
+        <label for="description">할일 세부사항:</label>
+        <textarea id="description" name="description" required>{{ todo.description }}</textarea>
+        <label for="date_deadline">데드라인:</label>
+        <input type="date" id="date_deadline" name="date_deadline" value="{{ todo.date_deadline }}" required>
+        <button type="submit">수정</button>
+    </form>
+</body>
+</html>

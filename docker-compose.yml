@@ -1,0 +1,24 @@
+version: '3.12'
+services:
+  db:
+    image: mysql:8.0.31
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_PORT=3306
+      - MYSQL_ROOT_PASSWORD=##ace9715
+      - MYSQL_DB=todolist
+      - MYSQL_USER=user01
+      - MYSQL_PASSWORD=##ace9715
+      - TZ=Asia/Seoul
+  web:
+    image: django:5.0.4
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

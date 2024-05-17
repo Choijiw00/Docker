@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ToDo List</title>
+</head>
+<body>
+    <h1>ToDo List</h1>
+    <form method="post" action="{% url 'todo:add_todo' %}">
+        {% csrf_token %}
+        <label for="name">할일 제목:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="description">할일 세부사항:</label>
+        <textarea id="description" name="description" required></textarea>
+        <label for="date_deadline">데드라인:</label>
+        <input type="date" id="date_deadline" name="date_deadline" required>
+        <button type="submit">추가</button>
+    </form>
+    <ul>
+        {% for todo in to_do_list %}
+        <li>
+            {{ todo.name }} - {{ todo.description }} - {{ todo.date_created }} - {{ todo.date_deadline }}
+            <a href="{% url 'todo:edit_todo' todo.id %}">수정</a>
+            <form method="post" action="{% url 'todo:delete_todo' todo.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">삭제</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
